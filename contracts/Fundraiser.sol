@@ -28,14 +28,13 @@ contract Fundraiser is Ownable {
         string memory _description,
         uint256 _goalAmount,
         address payable _beneficiary,
-        address _custodian
-    ) {
+        address _initialOwner
+    ) Ownable(_initialOwner) {
         name = _name;
         image = _image;
         description = _description;
         goalAmount = _goalAmount;
         beneficiary = _beneficiary;
-        transferOwnership(_custodian);
     }
 
     function setBeneficiary(address payable _beneficiary) external onlyOwner {
@@ -82,6 +81,16 @@ contract Fundraiser is Ownable {
     }
 
     fallback() external payable {
-        donate();
+        require(msg.value > 0, "Donation amount must be greater than zero");
+        donations[msg.sender].push(Donation({
+            value: msg.value,
+            date: block.timestamp
+        }));
+        totalDonations += msg.value;
+        donationsCount++;
+
+        emit DonationReceived(msg.sender, msg.value);
     }
+    
+    receive() external payable {}
 }
