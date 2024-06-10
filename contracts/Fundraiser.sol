@@ -2,8 +2,9 @@
 pragma solidity ^0.8.26;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract Fundraiser is Ownable {
+contract Fundraiser is Ownable, ReentrancyGuard {
     struct Donation {
         uint256 value;
         uint256 date;
@@ -12,7 +13,8 @@ contract Fundraiser is Ownable {
     mapping(address => Donation[]) private donations;
 
     event DonationReceived(address indexed donor, uint256 value);
-    event Withdraw(uint256 amount);
+    event Withdrawal(address indexed beneficiary, uint256 amount);
+    event BeneficiaryChanged(address indexed oldBeneficiary, address indexed newBeneficiary);
 
     string public name;
     string public image;
@@ -38,14 +40,12 @@ contract Fundraiser is Ownable {
     }
 
     function setBeneficiary(address payable _beneficiary) external onlyOwner {
+        address oldBeneficiary = beneficiary;
         beneficiary = _beneficiary;
+        emit BeneficiaryChanged(oldBeneficiary, _beneficiary);
     }
 
-    function myDonationsCount() external view returns (uint256) {
-        return donations[msg.sender].length;
-    }
-
-    function donate() external payable {
+    function donate() external payable nonReentrant {
         require(msg.value > 0, "Donation amount must be greater than zero");
         donations[msg.sender].push(Donation({
             value: msg.value,
@@ -55,6 +55,10 @@ contract Fundraiser is Ownable {
         donationsCount++;
 
         emit DonationReceived(msg.sender, msg.value);
+    }
+
+    function myDonationsCount() external view returns (uint256) {
+        return donations[msg.sender].length;
     }
 
     function myDonations() external view returns (uint256[] memory values, uint256[] memory dates) {
@@ -71,26 +75,15 @@ contract Fundraiser is Ownable {
         return (values, dates);
     }
 
-    function withdraw() external onlyOwner {
+    function withdraw() external onlyOwner nonReentrant {
         uint256 balance = address(this).balance;
         require(balance > 0, "Insufficient balance to withdraw");
         (bool success, ) = beneficiary.call{value: balance}("");
         require(success, "Withdrawal failed");
 
-        emit Withdraw(balance);
+        emit Withdrawal(beneficiary, balance);
     }
 
-    fallback() external payable {
-        require(msg.value > 0, "Donation amount must be greater than zero");
-        donations[msg.sender].push(Donation({
-            value: msg.value,
-            date: block.timestamp
-        }));
-        totalDonations += msg.value;
-        donationsCount++;
-
-        emit DonationReceived(msg.sender, msg.value);
-    }
-    
     receive() external payable {}
 }
+
