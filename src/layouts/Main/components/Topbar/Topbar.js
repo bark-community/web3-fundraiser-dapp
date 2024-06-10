@@ -29,8 +29,8 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           component={"img"}
           src={
             mode === "light" && !colorInvert
-              ? "https://github.com/bark-community/blob/main/images/logo-light.svg?raw=true"
-              : "https://github.com/bark-community/web-fundraising-platform/logo-dark.svg?raw=true"
+              ? "https://github.com/bark-community/web3-fundraising-platform/blob/main/images/logo-light.svg?raw=true"
+              : "https://github.com/bark-community/web3-fundraising-platform/blob/main/images/logo-dark.svg?raw=true"
           }
           height={0.4}
           width={0.4}
