@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -15,6 +15,7 @@ contract Fundraiser is Ownable, ReentrancyGuard {
     event DonationReceived(address indexed donor, uint256 value);
     event Withdrawal(address indexed beneficiary, uint256 amount);
     event BeneficiaryChanged(address indexed oldBeneficiary, address indexed newBeneficiary);
+    event GoalReached(uint256 amountRaised);
 
     string public name;
     string public image;
@@ -23,6 +24,12 @@ contract Fundraiser is Ownable, ReentrancyGuard {
     uint256 public goalAmount;
     uint256 public totalDonations;
     uint256 public donationsCount;
+    uint256 public fundraisingDeadline;
+
+    modifier goalNotReached() {
+        require(totalDonations < goalAmount, "Goal already reached");
+        _;
+    }
 
     constructor(
         string memory _name,
@@ -30,13 +37,15 @@ contract Fundraiser is Ownable, ReentrancyGuard {
         string memory _description,
         uint256 _goalAmount,
         address payable _beneficiary,
-        address _initialOwner
+        address _initialOwner,
+        uint256 _fundraisingDuration
     ) Ownable(_initialOwner) {
         name = _name;
         image = _image;
         description = _description;
         goalAmount = _goalAmount;
         beneficiary = _beneficiary;
+        fundraisingDeadline = block.timestamp + _fundraisingDuration;
     }
 
     function setBeneficiary(address payable _beneficiary) external onlyOwner {
@@ -45,8 +54,9 @@ contract Fundraiser is Ownable, ReentrancyGuard {
         emit BeneficiaryChanged(oldBeneficiary, _beneficiary);
     }
 
-    function donate() external payable nonReentrant {
+    function donate() external payable nonReentrant goalNotReached {
         require(msg.value > 0, "Donation amount must be greater than zero");
+        require(block.timestamp < fundraisingDeadline, "Fundraising deadline has passed");
         donations[msg.sender].push(Donation({
             value: msg.value,
             date: block.timestamp
@@ -55,6 +65,10 @@ contract Fundraiser is Ownable, ReentrancyGuard {
         donationsCount++;
 
         emit DonationReceived(msg.sender, msg.value);
+
+        if (totalDonations >= goalAmount) {
+            emit GoalReached(totalDonations);
+        }
     }
 
     function myDonationsCount() external view returns (uint256) {
@@ -86,4 +100,3 @@ contract Fundraiser is Ownable, ReentrancyGuard {
 
     receive() external payable {}
 }
-
