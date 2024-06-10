@@ -1,5 +1,5 @@
-import React from 'react';
-import Create from 'views/Create';
+import React from "react";
+import Create from "views/Create";
 
 const CreatePage = () => {
   return <Create />;

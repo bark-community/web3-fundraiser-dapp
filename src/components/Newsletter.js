@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import * as yup from 'yup';
-import { useFormik } from 'formik';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Collapse from '@mui/material/Collapse';
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import * as FirestoreService from 'services/firebase';
+import React, { useState } from "react";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Collapse from "@mui/material/Collapse";
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import * as FirestoreService from "services/firebase";
 
 const validationSchema = yup.object({
   email: yup
     .string()
     .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
+    .email("Please enter a valid email address")
+    .required("Email is required."),
 });
 
 const Newsletter = () => {
   const [emailUploaded, setEmailUploaded] = useState(false);
   const initialValues = {
-    email: '',
+    email: "",
   };
   const onSubmit = (values) => {
     FirestoreService.addNewsletterEmail(values.email)
       .then((docRef) => {
-        console.log('Document written with ID: ', docRef.id);
+        console.log("Document written with ID: ", docRef.id);
         setEmailUploaded(true);
         formik.resetForm();
       })
@@ -44,39 +44,39 @@ const Newsletter = () => {
       <Box marginBottom={4}>
         <Typography
           fontWeight={700}
-          variant={'h4'}
-          align={'center'}
+          variant={"h4"}
+          align={"center"}
           gutterBottom
         >
           Subscribe to our newsletter
         </Typography>
         <Typography
-          variant={'h6'}
-          component={'p'}
-          color={'text.secondary'}
-          align={'center'}
+          variant={"h6"}
+          component={"p"}
+          color={"text.secondary"}
+          align={"center"}
         >
           Get real time updates and news.
         </Typography>
       </Box>
       {!emailUploaded && (
-        <Box maxWidth={600} margin={'0 auto'}>
+        <Box maxWidth={600} margin={"0 auto"}>
           <Box
-            component={'form'}
+            component={"form"}
             onSubmit={formik.handleSubmit}
             noValidate
             autoComplete="off"
             sx={{
-              '& .MuiInputBase-input.MuiOutlinedInput-input': {
-                bgcolor: 'background.paper',
+              "& .MuiInputBase-input.MuiOutlinedInput-input": {
+                bgcolor: "background.paper",
               },
             }}
           >
             <Box
               display="flex"
-              flexDirection={{ xs: 'column', md: 'row' }}
-              alignItems={{ xs: 'center', md: 'flex-start' }}
-              justifyContent={{ xs: 'center' }}
+              flexDirection={{ xs: "column", md: "row" }}
+              alignItems={{ xs: "center", md: "flex-start" }}
+              justifyContent={{ xs: "center" }}
             >
               <TextField
                 sx={{ height: 54, maxWidth: 422, marginRight: 1 }}
@@ -106,7 +106,7 @@ const Newsletter = () => {
           </Box>
         </Box>
       )}
-      <Box width={1} display={'flex'} justifyContent={'center'}>
+      <Box width={1} display={"flex"} justifyContent={"center"}>
         <Collapse in={emailUploaded}>
           <Alert
             severity="success"

@@ -1,42 +1,42 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Box } from '@mui/material';
+import React from "react";
+import PropTypes from "prop-types";
+import { Button, Box } from "@mui/material";
 
-import { alpha, useTheme } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import { NavItem } from './components';
-import ThemeModeToggler from 'components/ThemeModeToggler';
-import Login from 'web3/Login';
+import { alpha, useTheme } from "@mui/material/styles";
+import MenuIcon from "@mui/icons-material/Menu";
+import { NavItem } from "./components";
+import ThemeModeToggler from "components/ThemeModeToggler";
+import Login from "web3/Login";
 
 const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
   return (
     <Box
-      display={'flex'}
-      justifyContent={'space-between'}
-      alignItems={'center'}
+      display={"flex"}
+      justifyContent={"space-between"}
+      alignItems={"center"}
       width={1}
     >
       <Box
-        display={'flex'}
+        display={"flex"}
         component="a"
         href="/"
         title="crypto charity"
         width={{ xs: 360, md: 360 }}
       >
         <Box
-          component={'img'}
+          component={"img"}
           src={
-            mode === 'light' && !colorInvert
-              ? 'https://github.com/ac12644/Crypto-Charity/blob/main/images/crypto-charity-light.svg?raw=true'
-              : 'https:///https://github.com/bark-community/web-fundraising-platform/logo-dark.svg?raw=true'
+            mode === "light" && !colorInvert
+              ? "https://github.com/bark-community/blob/main/images/logo-light.svg?raw=true"
+              : "https://github.com/bark-community/web-fundraising-platform/logo-dark.svg?raw=true"
           }
           height={0.4}
           width={0.4}
         />
       </Box>
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
+      <Box sx={{ display: { xs: "none", md: "flex" } }} alignItems={"center"}>
         <Box>
           <NavItem items={pages} colorInvert={colorInvert} />
         </Box>
@@ -48,7 +48,7 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         </Box>
       </Box>
 
-      <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
+      <Box sx={{ display: { xs: "flex", md: "none" } }} alignItems={"center"}>
         <Box>
           <Login />
         </Box>
@@ -56,10 +56,10 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           <Button
             onClick={() => onSidebarOpen()}
             aria-label="Menu"
-            variant={'outlined'}
+            variant={"outlined"}
             sx={{
               borderRadius: 2,
-              minWidth: 'auto',
+              minWidth: "auto",
               padding: 1,
               borderColor: alpha(theme.palette.divider, 0.2),
             }}

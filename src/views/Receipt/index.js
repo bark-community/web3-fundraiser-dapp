@@ -1,1 +1,1 @@
-export { default, style } from './Receipt';
+export { default, style } from "./Receipt";

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { alpha, useTheme } from '@mui/material/styles';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { alpha, useTheme } from "@mui/material/styles";
 import {
   Box,
   Button,
@@ -9,14 +9,14 @@ import {
   Grid,
   Card,
   CardMedia,
-} from '@mui/material';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import ProjectDialog from './components/ProjectDialog/ProjectDialog';
-import Web3 from 'web3';
-import detectEthereumProvider from '@metamask/detect-provider';
-import FundraiserContract from 'contracts/Fundraiser.json';
+} from "@mui/material";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import ProjectDialog from "./components/ProjectDialog/ProjectDialog";
+import Web3 from "web3";
+import detectEthereumProvider from "@metamask/detect-provider";
+import FundraiserContract from "contracts/Fundraiser.json";
 
-const cc = require('cryptocompare');
+const cc = require("cryptocompare");
 
 const FundraiserCard = ({ fundraiser }) => {
   const theme = useTheme();
@@ -24,7 +24,7 @@ const FundraiserCard = ({ fundraiser }) => {
   const [web3, setWeb3] = useState(null);
 
   const [description, setDescription] = useState(null);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
   const [fundName, setFundName] = useState(null);
   const [goalAmount, setGoalAmount] = useState(null);
   const [totalDonations, setTotalDonations] = useState(null);
@@ -49,7 +49,7 @@ const FundraiserCard = ({ fundraiser }) => {
       const provider = await detectEthereumProvider();
       const web3 = new Web3(provider);
       const account = await web3.eth.getAccounts();
-      console.log('accounts---', account);
+      console.log("accounts---", account);
 
       const instance = new web3.eth.Contract(FundraiserContract.abi, fund);
 
@@ -62,19 +62,19 @@ const FundraiserCard = ({ fundraiser }) => {
       setImage(await instance.methods.image().call());
       setDescription(await instance.methods.description().call());
       setGoalAmount(await instance.methods.goalAmount().call());
-      console.log('---------data--------');
+      console.log("---------data--------");
       console.log(fundName, image, description, goalAmount);
       const totalDonation = await instance.methods.totalDonations().call();
 
       await cc
-        .price('ETH', ['USD'])
+        .price("ETH", ["USD"])
         .then((prices) => {
           exchangeRate = prices.USD;
           setExchangeRate(prices.USD);
         })
         .catch(console.error);
 
-      const eth = web3.utils.fromWei(web3.utils.toBN(totalDonation), 'ether');
+      const eth = web3.utils.fromWei(web3.utils.toBN(totalDonation), "ether");
 
       setTotalDonationsEth(parseFloat(eth).toFixed(4));
       const dollarDonationAmount = exchangeRate * eth;
@@ -112,26 +112,26 @@ const FundraiserCard = ({ fundraiser }) => {
     let donationList = [];
     var i;
     for (i = 0; i < totalDonations; i++) {
-      const ethAmount = web3.utils.fromWei(donations.values[i], 'ether');
+      const ethAmount = web3.utils.fromWei(donations.values[i], "ether");
       const userDonation = exchangeRate * ethAmount;
       const donationDate = donations.dates[i];
       donationList.push({
         donationAmount: userDonation.toFixed(2),
         date: donationDate,
       });
-      console.log('<<<<', donationList);
+      console.log("<<<<", donationList);
     }
 
     return donationList.map((donation) => {
       return (
         <Box>
-          <Typography component={'span'} fontWeight={700}>
+          <Typography component={"span"} fontWeight={700}>
             ${donation.donationAmount}
           </Typography>
 
           <Link
             to={{
-              pathname: '/receipt',
+              pathname: "/receipt",
               state: {
                 fund: fundName,
                 donation: donation.donationAmount,
@@ -154,37 +154,37 @@ const FundraiserCard = ({ fundraiser }) => {
 
   return (
     <Grid item xs={12} sm={6} md={3}>
-      <Box display={'block'} width={1} height={1}>
+      <Box display={"block"} width={1} height={1}>
         <Card
           sx={{
             width: 1,
             height: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            boxShadow: 'none',
-            bgcolor: 'transparent',
-            backgroundImage: 'none',
+            display: "flex",
+            flexDirection: "column",
+            boxShadow: "none",
+            bgcolor: "transparent",
+            backgroundImage: "none",
           }}
         >
           <CardMedia
             title={fundName}
             image={image}
             sx={{
-              position: 'relative',
+              position: "relative",
               height: 320,
-              overflow: 'hidden',
+              overflow: "hidden",
               borderRadius: 2,
               filter:
-                theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
+                theme.palette.mode === "dark" ? "brightness(0.7)" : "none",
             }}
             onClick={() => setOpen(true)}
           >
             <Stack
-              direction={'row'}
+              direction={"row"}
               spacing={1}
               sx={{
-                position: 'absolute',
-                top: 'auto',
+                position: "absolute",
+                top: "auto",
                 bottom: 0,
                 left: 0,
                 right: 0,
@@ -194,15 +194,15 @@ const FundraiserCard = ({ fundraiser }) => {
               <Box
                 sx={{
                   bgcolor: theme.palette.success.light,
-                  paddingY: '4px',
-                  paddingX: '8px',
+                  paddingY: "4px",
+                  paddingX: "8px",
                   borderRadius: 1,
-                  display: 'flex',
-                  alignItems: 'center',
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
                 <Typography
-                  variant={'caption'}
+                  variant={"caption"}
                   fontWeight={700}
                   sx={{
                     color: theme.palette.common.white,
@@ -210,7 +210,7 @@ const FundraiserCard = ({ fundraiser }) => {
                     lineHeight: 1,
                   }}
                 >
-                  ${totalDonations || '0'} raised
+                  ${totalDonations || "0"} raised
                 </Typography>
               </Box>
             </Stack>
@@ -218,10 +218,10 @@ const FundraiserCard = ({ fundraiser }) => {
           <Box marginTop={1}>
             <Typography fontWeight={700}>{fundName}</Typography>
           </Box>
-          <Stack marginTop={1} spacing={1} direction={'row'}>
+          <Stack marginTop={1} spacing={1} direction={"row"}>
             <Button
-              color={'primary'}
-              size={'large'}
+              color={"primary"}
+              size={"large"}
               startIcon={
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import './Receipt.css'; // Import your CSS file here
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import "./Receipt.css"; // Import your CSS file here
 
 const Receipt = (props) => {
   const [donation, setDonation] = useState(null);

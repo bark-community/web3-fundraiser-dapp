@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
+import { useRef, useState } from "react";
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
 import {
   Box,
   Divider,
@@ -10,14 +10,14 @@ import {
   Avatar,
   Link,
   IconButton,
-} from '@mui/material';
+} from "@mui/material";
 
-import MenuPopover from 'components/MenuPopover';
+import MenuPopover from "components/MenuPopover";
 
 const MENU_OPTIONS = [
   {
-    label: 'My Donations',
-    route: '/my-donations',
+    label: "My Donations",
+    route: "/my-donations",
   },
 ];
 
@@ -40,13 +40,13 @@ function Account({ address, icon, handleLogout }) {
         sx={{
           p: 0,
           ...(open && {
-            '&:before': {
+            "&:before": {
               zIndex: 1,
               content: "''",
-              width: '100%',
-              height: '100%',
-              borderRadius: '50%',
-              position: 'absolute',
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              position: "absolute",
               bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
             },
           }),
@@ -62,19 +62,19 @@ function Account({ address, icon, handleLogout }) {
           p: 0,
           mt: 1.5,
           ml: 0.75,
-          '& .MuiMenuItem-root': {
-            typography: 'body2',
+          "& .MuiMenuItem-root": {
+            typography: "body2",
             borderRadius: 0.75,
           },
         }}
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+          <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
             {address}
           </Typography>
         </Box>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        <Divider sx={{ borderStyle: "dashed" }} />
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
@@ -89,7 +89,7 @@ function Account({ address, icon, handleLogout }) {
           ))}
         </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        <Divider sx={{ borderStyle: "dashed" }} />
 
         <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
           Logout

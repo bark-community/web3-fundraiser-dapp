@@ -1,4 +1,4 @@
-import supportedChains from './chains';
+import supportedChains from "./chains";
 
 export function getChainData(chainId) {
   if (!chainId) {
@@ -7,17 +7,17 @@ export function getChainData(chainId) {
   const chainData = supportedChains.find((chain) => chain.chain_id === chainId);
 
   if (!chainData) {
-    throw new Error('ChainId missing or not supported');
+    throw new Error("ChainId missing or not supported");
   }
 
-  const API_KEY = 'EHVQTQUEDPVMWBBRVTGIADT19DPGD4C8HC';
+  const API_KEY = "EHVQTQUEDPVMWBBRVTGIADT19DPGD4C8HC";
 
   if (
-    chainData.rpc_url.includes('infura.io') &&
-    chainData.rpc_url.includes('%API_KEY%') &&
+    chainData.rpc_url.includes("infura.io") &&
+    chainData.rpc_url.includes("%API_KEY%") &&
     API_KEY
   ) {
-    const rpcUrl = chainData.rpc_url.replace('%API_KEY%', API_KEY);
+    const rpcUrl = chainData.rpc_url.replace("%API_KEY%", API_KEY);
 
     return {
       ...chainData,
@@ -28,9 +28,9 @@ export function getChainData(chainId) {
   return chainData;
 }
 
-export function ellipseAddress(address = '', width = 7) {
+export function ellipseAddress(address = "", width = 7) {
   if (!address) {
-    return '';
+    return "";
   }
   return `${address.slice(0, width)}....${address.slice(-width)}`;
 }
