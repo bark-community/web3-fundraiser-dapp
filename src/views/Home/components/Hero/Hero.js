@@ -29,12 +29,12 @@ const Hero = () => {
                   fontWeight: 700,
                 }}
               >
-                Be the change you want to see in the world
+                Empowering Communities Through Blockchain
               </Typography>
             </Box>
             <Box marginBottom={3}>
               <Typography variant="h6" component="p" color="text.secondary">
-                Crowdfunding platform built on top of Polygon blockchain.
+                Join us in revolutionizing the way we fundraise with a secure and transparent platform built on the Polygon blockchain.
               </Typography>
             </Box>
             <Box

@@ -10,6 +10,7 @@
     "prettier:fix": "prettier './src/**/*.js' --write",
     "eslint:fix": "eslint ./src --fix",
     "codeStyle:fix": "npm run prettier:fix && npm run eslint:fix",
+    "compile": "npx hardhat compile",
     "clear-all": "rimraf ./node_modules ./.next"
   },
   "eslintConfig": {

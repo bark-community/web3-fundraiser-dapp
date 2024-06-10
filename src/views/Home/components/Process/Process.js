@@ -13,17 +13,17 @@ import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 const mock = [
   {
     title: '0% Fees',
-    subtitle: 'No platform fees on transaction',
+    subtitle: 'No platform fees on transactions',
     icon: <CurrencyBitcoinIcon />,
   },
   {
-    title: 'Get funding',
-    subtitle: 'Accept ethereum transcations directly to your own wallet.',
+    title: 'Get Funding',
+    subtitle: 'Accept MATIC transactions directly to your own wallet.',
     icon: <AccountBalanceWalletIcon />,
   },
   {
-    title: 'Make donation',
-    subtitle: 'Grow with projects you support.',
+    title: 'Make Donations',
+    subtitle: 'Support and grow with the projects you believe in.',
     icon: <VolunteerActivismIcon />,
   },
 ];
@@ -50,7 +50,7 @@ const Process = () => {
           align={'center'}
           sx={{ fontWeight: 700 }}
         >
-          Raise fund and make donations in MATIC
+          Raise Funds and Make Donations with MATIC
         </Typography>
         <Typography
           variant={'h6'}
@@ -58,10 +58,10 @@ const Process = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Our goal is to create a space that will allow you to manage your
-          collection in the most efficient and effective way.
+          Our goal is to create a platform that empowers you to manage your
+          fundraising and donations efficiently and effectively.
           <br />
-          Using the new potential of the world of cryptocurrencies.
+          Harness the power of blockchain technology for a better future.
         </Typography>
       </Box>
       <Box>

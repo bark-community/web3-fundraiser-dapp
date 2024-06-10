@@ -12,9 +12,11 @@ import Web3 from 'web3';
 
 export default function Projects() {
   const theme = useTheme();
-  const [funds, setFunds] = useState([]);
+  const [fundraisers, setFundraisers] = useState([]);
   const [contract, setContract] = useState(null);
   const [accounts, setAccounts] = useState(null);
+
+  // Initialize Web3
   const web3 = new Web3(
     new Web3.providers.HttpProvider('https://rpc-mumbai.maticvigil.com'),
   );
@@ -32,23 +34,24 @@ export default function Projects() {
         FundraiserFactory.abi,
         deployedNetwork && deployedNetwork.address,
       );
+
       setContract(instance);
       setAccounts(accounts);
 
-      const funds = await instance.methods.fundraisers(1000, 0).call();
+      // Fetch fundraisers
+      const fundraisers = await instance.methods.fundraisers(1000, 0).call();
+      setFundraisers(fundraisers);
 
-      setFunds(funds);
-      console.log('------', funds);
-      setFunds(funds);
+      console.log('Fetched fundraisers:', fundraisers);
     } catch (error) {
-      console.error(error);
+      console.error('Error initializing contract:', error);
     }
   };
 
   const displayFundraisers = () => {
-    return funds.map((fundraiser) => {
-      return <FundraiserCard fundraiser={fundraiser} key={fundraiser} />;
-    });
+    return fundraisers.map((fundraiser, index) => (
+      <FundraiserCard fundraiser={fundraiser} key={index} />
+    ));
   };
 
   return (

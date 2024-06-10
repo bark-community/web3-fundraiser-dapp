@@ -56,7 +56,7 @@ const NotFound = () => {
                     Oops! Looks like you followed a bad link.
                     <br />
                     If you think this is a problem with us, please{' '}
-                    <Link href={''} underline="none">
+                    <Link href="#" underline="none">
                       tell us
                     </Link>
                   </Typography>

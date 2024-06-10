@@ -31,6 +31,22 @@ const supportedChains = [
       balance: '',
     },
   },
+  {
+    name: 'Solana',
+    short_name: 'sol',
+    chain: 'SOL',
+    network: 'mainnet',
+    chain_id: 101,
+    network_id: 101,
+    rpc_url: 'https://api.mainnet-beta.solana.com',
+    native_currency: {
+      symbol: 'SOL',
+      name: 'Solana',
+      decimals: '9',
+      contractAddress: '',
+      balance: '',
+    },
+  },
 ];
 
 export default supportedChains;

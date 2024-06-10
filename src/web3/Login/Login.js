@@ -15,7 +15,9 @@ export const providerOptions = {
     },
   },
 };
+
 let web3Modal;
+
 if (typeof window !== 'undefined') {
   web3Modal = new Web3Modal({
     network: 'mainnet', // optional
@@ -86,7 +88,10 @@ export const Login = () => {
   const disconnect = useCallback(
     async function () {
       await web3Modal.clearCachedProvider();
-      if (provider?.disconnect && typeof provider.disconnect === 'function') {
+      if (
+        provider?.disconnect &&
+        typeof provider.disconnect === 'function'
+      ) {
         await provider.disconnect();
       }
       dispatch({
@@ -97,13 +102,9 @@ export const Login = () => {
     [provider],
   );
 
-  // A `provider` should come with EIP-1193 events. We'll listen for those events
-  // here so that when a user switches accounts or networks, we can update the
-  // local React state with that new information.
   useEffect(() => {
     if (provider?.on) {
       const handleAccountsChanged = (accounts) => {
-        // eslint-disable-next-line no-console
         console.log('accountsChanged', accounts);
         dispatch({
           type: 'SET_ADDRESS',
@@ -111,13 +112,11 @@ export const Login = () => {
         });
       };
 
-      // https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
       const handleChainChanged = (_hexChainId) => {
         window.location.reload();
       };
 
       const handleDisconnect = (error) => {
-        // eslint-disable-next-line no-console
         console.log('disconnect', error);
         disconnect();
       };
@@ -126,10 +125,12 @@ export const Login = () => {
       provider.on('chainChanged', handleChainChanged);
       provider.on('disconnect', handleDisconnect);
 
-      // Subscription Cleanup
       return () => {
         if (provider.removeListener) {
-          provider.removeListener('accountsChanged', handleAccountsChanged);
+          provider.removeListener(
+            'accountsChanged',
+            handleAccountsChanged
+          );
           provider.removeListener('chainChanged', handleChainChanged);
           provider.removeListener('disconnect', handleDisconnect);
         }

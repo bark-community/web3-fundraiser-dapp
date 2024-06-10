@@ -10,6 +10,11 @@ This project is a decentralized fundraising platform built on the Polygon networ
 - **Fund Withdrawal**: Campaign creators can withdraw funds once the campaign ends or the target amount is reached.
 - **User Authentication**: Secure login and authentication using MetaMask or similar Ethereum-compatible wallets.
 
+### Network
+Contract is deployed on Polygon mumbai network
+
+- **CA**: 
+
 ## Technical Stack
 - **Blockchain Network**: Polygon (formerly Matic Network)
 - **Smart Contracts**: Solidity
@@ -38,26 +43,41 @@ This project is a decentralized fundraising platform built on the Polygon networ
     npm install
     ```
 
-3. **Configure Environment Variables**:
+## Setup
+
+1. **Install Dependencies**:
+    ```bash
+    npm install
+    ```
+
+2. **Configure Environment Variables**:
     Create a `.env` file in the root directory and add the following:
     ```env
     REACT_APP_POLYGON_RPC_URL=<Polygon RPC URL>
     REACT_APP_CONTRACT_ADDRESS=<Deployed Smart Contract Address>
     REACT_APP_MONGODB_URI=<MongoDB Connection String>
+    MNEMONIC_KEY=<Your Wallet Mnemonic>
+    INFURA_API_KEY=<Your Infura API Key>
+    INFURA_IPFS_ID=<Your Infura IPFS ID>
+    INFURA_IPFS_SECRET=<Your Infura IPFS Secret>
     ```
 
-4. **Compile and Deploy Smart Contracts**:
-    Make sure you have a Polygon testnet/mainnet account with sufficient MATIC for deployment.
+3. **Compile Contracts**:
     ```bash
     npx hardhat compile
-    npx hardhat run scripts/deploy.js --network polygon
+    ```
+
+4. **Deploy Contracts**:
+    Make sure you have a Polygon testnet/mainnet account with sufficient MATIC for deployment.
+    ```bash
+    npx hardhat run scripts/deploy_contracts.js --network polygon
     ```
 
 5. **Run the Application**:
     ```bash
     npm start
     ```
-
+    
     The application will be available at `http://localhost:3000`.
 
 ## Usage
