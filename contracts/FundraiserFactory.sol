@@ -1,49 +1,45 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.26;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+// Import the Fundraiser contract
 import "./Fundraiser.sol";
 
-contract FundraiserFactory {
-    uint256 public constant MAX_LIMIT = 20;
-    Fundraiser[] private fundraisers;
+contract FundraiserFactory is Ownable {
+    // Array to store deployed Fundraiser contracts
+    Fundraiser[] public fundraisers;
 
-    event FundraiserCreated(Fundraiser indexed fundraiser, address indexed owner);
+    // Event emitted when a new fundraiser is created
+    event FundraiserCreated(address indexed fundraiserAddress, address owner, string name, uint256 goalAmount);
 
+    // Function to create a new fundraiser
     function createFundraiser(
-        string memory name,
-        string memory image,
-        string memory description,
-        uint256 goalAmount,
-        address payable beneficiary
+        string memory _name,
+        string memory _image,
+        string memory _description,
+        uint256 _goalAmount,
+        address payable _beneficiary
     ) external {
-        Fundraiser fundraiser = new Fundraiser(
-            name,
-            image,
-            description,
-            goalAmount,
-            beneficiary,
-            msg.sender
+        // Deploy a new Fundraiser contract
+        Fundraiser newFundraiser = new Fundraiser(
+            _name,
+            _image,
+            _description,
+            _goalAmount,
+            _beneficiary,
+            msg.sender // Pass the caller's address as the initial owner
         );
-        fundraisers.push(fundraiser);
-        emit FundraiserCreated(fundraiser, msg.sender);
+
+        // Add the new Fundraiser contract to the array
+        fundraisers.push(newFundraiser);
+
+        // Emit an event to signal the creation of a new fundraiser
+        emit FundraiserCreated(address(newFundraiser), msg.sender, _name, _goalAmount);
     }
 
-    function fundraisersCount() external view returns (uint256) {
+    // Function to get the number of deployed fundraisers
+    function getFundraisersCount() external view returns (uint256) {
         return fundraisers.length;
-    }
-
-    function getFundraisers(uint256 limit, uint256 offset) external view returns (Fundraiser[] memory) {
-        require(offset <= fundraisers.length, "Offset out of bounds");
-        
-        uint256 size = fundraisers.length - offset;
-        size = size < limit ? size : limit;
-        size = size < MAX_LIMIT ? size : MAX_LIMIT;
-
-        Fundraiser[] memory coll = new Fundraiser[](size);
-        for (uint256 i = 0; i < size; i++) {
-            coll[i] = fundraisers[offset + i];
-        }
-
-        return coll;
     }
 }
