@@ -1,40 +1,54 @@
-printf "Checking for required npm version...\n"
-yarn install -g yarn > /dev/null 2>&1
-printf "Completed.\n\n"
+#!/bin/bash
 
-set -eEo pipefail
+# Function to print messages with formatting
+print_message() {
+  printf "%s\n" "$1"
+}
 
-if [ ! -z "$CLOUD_SHELL" ]
-then
-  printf "Setting up NVM...\n"
-  export NVM_DIR="/usr/local/nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-  printf "Completed.\n\n"
-  
-  printf "Updating nodeJS version...\n"
-  nvm install --lts
-  printf "Completed.\n\n"
+# Function to check if a command is available
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+# Check if Yarn is installed, if not, install it
+if ! command_exists yarn; then
+  print_message "Yarn is not installed. Installing..."
+  npm install -g yarn >/dev/null 2>&1
+  print_message "Yarn installation completed."
 fi
 
-printf "Installing dependencies...\n"
+# If in Cloud Shell, set up NVM and update NodeJS version
+if [ ! -z "$CLOUD_SHELL" ]; then
+  print_message "Setting up NVM..."
+  export NVM_DIR="/usr/local/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  print_message "NVM setup completed."
+  
+  print_message "Updating NodeJS version..."
+  nvm install --lts
+  print_message "NodeJS version updated."
+fi
+
+# Install project dependencies
+print_message "Installing dependencies..."
 yarn install
-printf "Completed.\n\n"
+print_message "Dependencies installation completed."
 
-
-printf "Building React app and placing into sub projects...\n"
+# Build the React app
+print_message "Building React app..."
 yarn run build
-printf "Completed.\n\n"
+print_message "React app build completed."
 
-printf "Setup completed successfully!\n"
+print_message "Setup completed successfully!"
 
-if [ ! -z "$CLOUD_SHELL" ]
-then
+# Provide a notice about ensuring a compatible NodeJS version in Cloud Shell
+if [ ! -z "$CLOUD_SHELL" ]; then
   printf "\n"
   printf "###############################################################################\n"
   printf "#                                   NOTICE                                    #\n"
   printf "#                                                                             #\n"
-  printf "# Make sure you have a compatible nodeJS version with the following command:  #\n"
+  printf "# Make sure you have a compatible NodeJS version with the following command:  #\n"
   printf "#                                                                             #\n"
   printf "# nvm install --lts                                                           #\n"
   printf "#                                                                             #\n"
