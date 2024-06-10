@@ -13,6 +13,9 @@ contract FundraiserFactory is Ownable {
     // Event emitted when a new fundraiser is created
     event FundraiserCreated(address indexed fundraiserAddress, address owner, string name, uint256 goalAmount);
 
+    // Constructor to initialize the Ownable contract with the specified initial owner
+    constructor(address initialOwner) Ownable(initialOwner) {}
+
     // Function to create a new fundraiser
     function createFundraiser(
         string memory _name,
