@@ -1,27 +1,27 @@
-# BARK | Web3 Fundraising Platform
+# BARK | Web3 Fundraiser dApp
 
-<!-- LOGO -->
 <br />
 <div align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="images/logo-dark.png">
-  <img alt="Text changing depending on mode. Light: 'light!' Dark: 'dark!'" src="images/logo-dark.png" width="240" height="40">
+  <img alt="BARK Logo" src="images/logo-dark.png" width="240" height="40">
 </picture>
+</div>
 
 ## Overview
-This project is a decentralized fundraising platform built on the Polygon network, allowing users to raise funds for social work using cryptocurrency. Users can create fundraising campaigns, donate BARK, SOL and MATIC tokens, generate receipts, and withdraw funds securely.
+This project is a decentralized fundraising platform built on the Polygon network, allowing users to raise funds for social work using cryptocurrency. Users can create fundraising campaigns, donate BARK, SOL, and MATIC tokens, generate receipts, and withdraw funds securely.
 
 ## Features
 - **Campaign Creation**: Create and manage fundraising campaigns with a title, description, target amount, and duration.
-- **Donations**: Donate, USDC, SOL, BARK or MATIC tokens to active campaigns, with all transactions recorded on the blockchain.
+- **Donations**: Donate USDC, SOL, BARK, or MATIC tokens to active campaigns, with all transactions recorded on the blockchain.
 - **Receipt Generation**: Automatically generate and access receipts for each donation.
 - **Fund Withdrawal**: Campaign creators can withdraw funds once the campaign ends or the target amount is reached.
 - **User Authentication**: Secure login and authentication using MetaMask or similar Ethereum-compatible wallets.
 
 ### Network
-Contract is deployed on Polygon mumbai network
+Contract is deployed on Polygon Mumbai network.
 
-- **CA**: 
+- **Contract Address (CA)**: 
 
 ## Technical Stack
 - **Blockchain Network**: Polygon (formerly Matic Network)
@@ -42,8 +42,8 @@ Contract is deployed on Polygon mumbai network
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/bark-community/web3-fundraising-platform.git
-    cd wb3-fundraising-platform
+    git clone https://github.com/bark-community/web3-fundraiser-dapp.git
+    cd web3-fundraiser-dapp
     ```
 
 2. **Install dependencies**:
@@ -111,10 +111,7 @@ Contract is deployed on Polygon mumbai network
 We welcome contributions to enhance the platform. Please fork the repository and submit pull requests.
 
 ## License
-This project is licensed under the MIT License.
-
-## Contact
-For questions or support, please reach out to [your-email@example.com](mailto:your-email@example.com).
+MIT License.
 
 ## Acknowledgements
 - [Polygon](https://polygon.technology/)
