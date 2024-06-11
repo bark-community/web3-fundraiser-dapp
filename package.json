@@ -42,6 +42,7 @@
     "@mui/icons-material": "^5.15.19",
     "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material": "^5.15.19",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@openzeppelin/contracts": "^5.0.2",
     "@truffle/hdwallet-provider": "^1.7.0",
     "@walletconnect/web3-provider": "^1.8.0",
