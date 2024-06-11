@@ -1,11 +1,11 @@
 const pages = [
   {
-    title: "Create Campaign",
-    href: "/create",
+    title: 'Create Campaign',
+    href: '/create',
   },
   {
-    title: "Projects",
-    href: "/projects",
+    title: 'Projects',
+    href: '/projects',
   },
 ];
 

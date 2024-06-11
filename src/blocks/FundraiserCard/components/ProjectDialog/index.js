@@ -1,1 +1,1 @@
-export { default } from "./ProjectDialog";
+export { default } from './ProjectDialog';

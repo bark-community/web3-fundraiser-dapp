@@ -1,5 +1,5 @@
-import React from "react";
-import Receipt from "views/Receipt";
+import React from 'react';
+import Receipt from 'views/Receipt';
 
 const ReceiptPage = () => {
   return <Receipt />;

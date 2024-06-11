@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
-import { IconButton } from "@mui/material";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import Account from "./components/Account";
-import { ellipseAddress, getChainData } from "./lib/utilities";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import { providers } from "ethers";
-import Web3Modal from "web3modal";
+import { useCallback, useEffect, useReducer, useState } from 'react';
+import { IconButton } from '@mui/material';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import Account from './components/Account';
+import { ellipseAddress, getChainData } from './lib/utilities';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+import { providers } from 'ethers';
+import Web3Modal from 'web3modal';
 
 export const providerOptions = {
   walletconnect: {
@@ -15,12 +15,10 @@ export const providerOptions = {
     },
   },
 };
-
 let web3Modal;
-
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   web3Modal = new Web3Modal({
-    network: "mainnet", // optional
+    network: 'mainnet', // optional
     cacheProvider: true,
     providerOptions, // required
   });
@@ -35,7 +33,7 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "SET_WEB3_PROVIDER":
+    case 'SET_WEB3_PROVIDER':
       return {
         ...state,
         provider: action.provider,
@@ -43,17 +41,17 @@ function reducer(state, action) {
         address: action.address,
         chainId: action.chainId,
       };
-    case "SET_ADDRESS":
+    case 'SET_ADDRESS':
       return {
         ...state,
         address: action.address,
       };
-    case "SET_CHAIN_ID":
+    case 'SET_CHAIN_ID':
       return {
         ...state,
         chainId: action.chainId,
       };
-    case "RESET_WEB3_PROVIDER":
+    case 'RESET_WEB3_PROVIDER':
       return initialState;
     default:
       throw new Error();
@@ -77,7 +75,7 @@ export const Login = () => {
     const network = await web3Provider.getNetwork();
 
     dispatch({
-      type: "SET_WEB3_PROVIDER",
+      type: 'SET_WEB3_PROVIDER',
       provider,
       web3Provider,
       address,
@@ -88,45 +86,52 @@ export const Login = () => {
   const disconnect = useCallback(
     async function () {
       await web3Modal.clearCachedProvider();
-      if (provider?.disconnect && typeof provider.disconnect === "function") {
+      if (provider?.disconnect && typeof provider.disconnect === 'function') {
         await provider.disconnect();
       }
       dispatch({
-        type: "RESET_WEB3_PROVIDER",
+        type: 'RESET_WEB3_PROVIDER',
       });
       setAnchorEl(null);
     },
     [provider],
   );
 
+  // A `provider` should come with EIP-1193 events. We'll listen for those events
+  // here so that when a user switches accounts or networks, we can update the
+  // local React state with that new information.
   useEffect(() => {
     if (provider?.on) {
       const handleAccountsChanged = (accounts) => {
-        console.log("accountsChanged", accounts);
+        // eslint-disable-next-line no-console
+        console.log('accountsChanged', accounts);
         dispatch({
-          type: "SET_ADDRESS",
+          type: 'SET_ADDRESS',
           address: accounts[0],
         });
       };
 
+      // https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
       const handleChainChanged = (_hexChainId) => {
         window.location.reload();
       };
 
       const handleDisconnect = (error) => {
-        console.log("disconnect", error);
+        // eslint-disable-next-line no-console
+        console.log('disconnect', error);
         disconnect();
       };
 
-      provider.on("accountsChanged", handleAccountsChanged);
-      provider.on("chainChanged", handleChainChanged);
-      provider.on("disconnect", handleDisconnect);
+      provider.on('accountsChanged', handleAccountsChanged);
+      provider.on('chainChanged', handleChainChanged);
+      provider.on('disconnect', handleDisconnect);
 
+      // Subscription Cleanup
       return () => {
         if (provider.removeListener) {
-          provider.removeListener("accountsChanged", handleAccountsChanged);
-          provider.removeListener("chainChanged", handleChainChanged);
-          provider.removeListener("disconnect", handleDisconnect);
+          provider.removeListener('accountsChanged', handleAccountsChanged);
+          provider.removeListener('chainChanged', handleChainChanged);
+          provider.removeListener('disconnect', handleDisconnect);
         }
       };
     }

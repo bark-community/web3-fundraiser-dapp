@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Box, Grid, Dialog, Typography, Button } from "@mui/material";
-import { VolunteerActivism } from "@mui/icons-material";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Box, Grid, Dialog, Typography, Button } from '@mui/material';
+import { VolunteerActivism } from '@mui/icons-material';
 
 const DialogBox = ({
   open,
@@ -15,30 +15,30 @@ const DialogBox = ({
     <Dialog
       onClose={onClose}
       open={open}
-      maxWidth={"sm"}
+      maxWidth={'sm'}
       sx={{
-        "& .MuiPaper-root": {
+        '& .MuiPaper-root': {
           borderRadius: 4,
         },
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           paddingY: { xs: 4, sm: 10 },
           paddingX: { xs: 4, sm: 12 },
         }}
       >
         <VolunteerActivism sx={{ fontSize: 50 }} />
-        <Typography align={"center"}>
-          <Typography component={"span"} fontWeight={700}>
+        <Typography align={'center'}>
+          <Typography component={'span'} fontWeight={700}>
             {title}
           </Typography>
         </Typography>
-        <Typography align={"center"}>
-          <Typography component={"span"} fontWeight={500}>
+        <Typography align={'center'}>
+          <Typography component={'span'} fontWeight={500}>
             {message}
           </Typography>
         </Typography>
@@ -46,8 +46,8 @@ const DialogBox = ({
           <Grid item xs={12}>
             <Button
               href={buttonLink}
-              size={"large"}
-              variant={"contained"}
+              size={'large'}
+              variant={'contained'}
               fullWidth
             >
               {buttonText}
@@ -55,8 +55,8 @@ const DialogBox = ({
           </Grid>
         </Grid>
         <Typography
-          align={"center"}
-          sx={{ textDecoration: "underline", cursor: "pointer" }}
+          align={'center'}
+          sx={{ textDecoration: 'underline', cursor: 'pointer' }}
           onClick={onClose}
         >
           Close

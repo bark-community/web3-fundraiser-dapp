@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { Box, Grid, Dialog, TextField, Typography } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import { useFormik } from "formik";
-import * as yup from "yup";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Box, Grid, Dialog, TextField, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 const validationSchema = yup.object({
   newBeneficiary: yup
     .string()
-    .min(20, "Enter correct wallet address!")
-    .required("Please specify new beneficiary address")
-    .matches(/0x[a-fA-F0-9]{40}/, "Enter correct wallet address!"),
+    .min(20, 'Enter correct wallet address!')
+    .required('Please specify new beneficiary address')
+    .matches(/0x[a-fA-F0-9]{40}/, 'Enter correct wallet address!'),
 });
 
 const Beneficiary = ({
@@ -24,7 +24,7 @@ const Beneficiary = ({
 
   const formik = useFormik({
     initialValues: {
-      newBeneficiary: "",
+      newBeneficiary: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -53,26 +53,26 @@ const Beneficiary = ({
     <Dialog
       onClose={beneficiaryClose}
       open={beneficiaryOpen}
-      maxWidth={"sm"}
+      maxWidth={'sm'}
       sx={{
-        "& .MuiPaper-root": {
+        '& .MuiPaper-root': {
           borderRadius: 4,
         },
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           paddingY: { xs: 4, sm: 10 },
           paddingX: { xs: 4, sm: 12 },
         }}
       >
         <ManageAccountsIcon sx={{ fontSize: 50 }} />
-        <Typography align={"center"}>
-          <Typography component={"span"} fontWeight={700}>
-            Change beneficiary address{" "}
+        <Typography align={'center'}>
+          <Typography component={'span'} fontWeight={700}>
+            Change beneficiary address{' '}
           </Typography>
         </Typography>
         <form onSubmit={formik.handleSubmit}>
@@ -81,7 +81,7 @@ const Beneficiary = ({
               <TextField
                 label="Enter new beneficiary address"
                 variant="outlined"
-                name={"newBeneficiary"}
+                name={'newBeneficiary'}
                 fullWidth
                 onChange={formik.handleChange}
                 value={formik.values?.newBeneficiary}
@@ -96,9 +96,9 @@ const Beneficiary = ({
             </Grid>
             <Grid item xs={12}>
               <LoadingButton
-                size={"large"}
-                variant={"contained"}
-                type={"submit"}
+                size={'large'}
+                variant={'contained'}
+                type={'submit'}
                 loading={loading}
                 fullWidth
               >
@@ -108,8 +108,8 @@ const Beneficiary = ({
           </Grid>
         </form>
         <Typography
-          align={"center"}
-          sx={{ textDecoration: "underline", cursor: "pointer" }}
+          align={'center'}
+          sx={{ textDecoration: 'underline', cursor: 'pointer' }}
           onClick={beneficiaryClose}
         >
           Cancel

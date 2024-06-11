@@ -1,7 +1,15 @@
 # BARK | Web3 Fundraising Platform
 
+<!-- LOGO -->
+<br />
+<div align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/logo-dark.png">
+  <img alt="Text changing depending on mode. Light: 'light!' Dark: 'dark!'" src="images/logo-dark.png" width="240" height="40">
+</picture>
+
 ## Overview
-This project is a decentralized fundraising platform built on the Polygon network, allowing users to raise funds for social work using cryptocurrency. Users can create fundraising campaigns, donate MATIC tokens, generate receipts, and withdraw funds securely.
+This project is a decentralized fundraising platform built on the Polygon network, allowing users to raise funds for social work using cryptocurrency. Users can create fundraising campaigns, donate BARK, SOL and MATIC tokens, generate receipts, and withdraw funds securely.
 
 ## Features
 - **Campaign Creation**: Create and manage fundraising campaigns with a title, description, target amount, and duration.

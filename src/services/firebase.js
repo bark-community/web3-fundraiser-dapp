@@ -1,10 +1,10 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
   collection,
   addDoc,
   serverTimestamp,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -16,7 +16,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export const addNewsletterEmail = (email) => {
-  const emailColRef = collection(db, "newsletterEmails");
+  const emailColRef = collection(db, 'newsletterEmails');
   return addDoc(emailColRef, {
     created: serverTimestamp(),
     email: email,
